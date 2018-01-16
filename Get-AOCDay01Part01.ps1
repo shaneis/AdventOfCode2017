@@ -5,21 +5,27 @@ function Get-AOCDay01Part01 {
     )
     
     begin {
+        #Initialize a holding variable
+        [int]$Sum = $null
+        #Split the input
+        $Digits = (($PuzzleNumber -split '') -ne '')
         # First number
-        [int]$StartNumber = (($PuzzleNumber -split '') -ne '')[0]
+        [int]$StartNumber = $Digits[0]
         # Last number (yeah, -1 means the last!)
-        [int]$EndNumber = (($PuzzleNumber -split '') -ne '')[-1]
+        [int]$EndNumber = $Digits[-1]
     }
     
     process {
-        $CurrentNumber = $PSItem
-    
-        # It they match, we add them
-        if ($CurrentNumber -eq $PreviousNumber)
-        {
-            $Sum += $CurrentNumber
+            $Digits | ForEach-Object {
+            $CurrentNumber = $PSItem
+        
+            # It they match, we add them
+            if ($CurrentNumber -eq $PreviousNumber)
+            {
+                $Sum += $CurrentNumber
+            }
+            $PreviousNumber = $CurrentNumber
         }
-        $PreviousNumber = $CurrentNumber
     }
     
     end {
